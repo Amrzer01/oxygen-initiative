@@ -1,0 +1,151 @@
+/* ─── Google Fonts ──────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply antialiased bg-cream-50 text-stone-900 overflow-x-hidden;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+
+  /* RTL Arabic */
+  html[lang="ar"] body { @apply font-cairo; }
+  html[lang="en"] body { @apply font-outfit; }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold leading-tight tracking-tight;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  ::selection {
+    background-color: rgba(22, 163, 74, 0.18);
+    color: #14532d;
+  }
+}
+
+/* ─── Components ────────────────────────────────────────────── */
+@layer components {
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-7 py-3.5 rounded-full
+           bg-green-600 text-white font-semibold text-sm
+           transition-all duration-300
+           hover:bg-green-700 hover:shadow-lg hover:shadow-green-600/25
+           hover:-translate-y-0.5
+           focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-green-500 focus-visible:ring-offset-2
+           active:scale-[0.98] active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           px-7 py-3.5 rounded-full
+           bg-transparent text-stone-800 font-semibold text-sm
+           border border-stone-300
+           transition-all duration-300
+           hover:border-green-600 hover:text-green-700
+           hover:bg-green-50
+           focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-green-500 focus-visible:ring-offset-2
+           active:scale-[0.98];
+  }
+
+  .btn-ghost-white {
+    @apply inline-flex items-center justify-center gap-2
+           px-7 py-3.5 rounded-full
+           bg-white/10 text-white font-semibold text-sm
+           border border-white/30
+           backdrop-blur-sm
+           transition-all duration-300
+           hover:bg-white/20 hover:border-white/50
+           focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-white focus-visible:ring-offset-2
+           active:scale-[0.98];
+  }
+
+  /* Section wrapper */
+  .section-wrap {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Eyebrow label */
+  .eyebrow {
+    @apply inline-flex items-center gap-2
+           text-xs font-semibold tracking-widest uppercase
+           text-green-700;
+  }
+
+  /* Divider line */
+  .divider { @apply w-12 h-0.5 bg-green-500 rounded-full; }
+
+  /* Card */
+  .card-base {
+    @apply bg-white rounded-2xl border border-stone-200/60
+           shadow-sm transition-all duration-300;
+  }
+}
+
+/* ─── Utilities ──────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .writing-mode-rtl { writing-mode: horizontal-tb; direction: rtl; }
+
+  /* Clip paths */
+  .clip-bottom-curve {
+    clip-path: ellipse(100% 100% at 50% 0%);
+  }
+
+  /* Scroll-driven fade (for browsers that support it) */
+  @supports (animation-timeline: scroll()) {
+    .scroll-fade {
+      animation: fadeIn linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 30%;
+    }
+  }
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Intro Screen ───────────────────────────────────────────── */
+#intro-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+/* SVG tree paths start invisible */
+.tree-path {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  transition: stroke-dashoffset 0s linear;
+}
+
+/* Number counter animation */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
